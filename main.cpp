@@ -19,26 +19,25 @@ int main() {
         int choice;
         std::cin >> choice;
 
-        // Basic error handling for the main menu
-        if (std::cin.fail()) {
+        if (std::cin.fail()) { //Error Handling
             std::cin.clear();
             std::cin.ignore(10000, '\n');
             std::cout << "Invalid input. Please enter a number.\n";
             continue;
         }
 
-        if (choice == 1) {
+        if (choice == 1) { //Rayhan
             EarthquakesToday todayModule;
-            todayModule.run(); // Hands control over to your code
-        } else if (choice == 2) {
+            todayModule.run(); 
+        } else if (choice == 2) { //Hishu
             PastEarthquakes pastModule;
-            pastModule.run();  // Hands control to teammate 1
-        } else if (choice == 3) {
+            pastModule.run();  
+        } else if (choice == 3) { //Niloy
             EarthquakePrediction predModule;
-            predModule.run();  // Hands control to teammate 2
-        } else if (choice == 4) {
+            predModule.run();  
+        } else if (choice == 4) { //Rayed
             BuildingMapping mapModule;
-            mapModule.run();   // Hands control to teammate 3
+            mapModule.run();  
         } else if (choice == 5) {
             std::cout << "Shutting down system. Stay safe!\n";
             break;
