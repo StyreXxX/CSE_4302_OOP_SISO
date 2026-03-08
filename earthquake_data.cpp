@@ -27,4 +27,3 @@ const std::vector<EarthquakeRecord> earthquakeDataset = {
     { "2026-02-14T08:15:10", -33.87, 151.21, 8.0, 2.8, "ml", 25, 90, 0.2, 0.4, "ga", "au1", "2026-02-14", "10km W of Sydney, Australia", "earthquake", 0.9, 1.6, 0.15, 18, "auto", "ga", "ga" },
     { "2026-02-14T23:55:55", 55.75, 37.62, 18.5, 3.5, "mb", 35, 85, 0.25, 0.5, "us", "ru1", "2026-02-15", "20km S of Moscow, Russia", "earthquake", 1.1, 2.0, 0.11, 22, "reviewed", "us", "us" }
 };
-
