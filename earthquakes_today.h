@@ -44,6 +44,8 @@ public:
     std::vector<EarthquakeRecord> getEarthquakesByCountry(const std::string& country) const;
     void displayEarthquakeDetails(const EarthquakeRecord& eq) const;
     void displayDisasterManagement(const std::vector<std::string>& keywords) const;
+    // Add this inside the public section of class EarthquakesToday:
+    void run();
 
     // Template function to handle user input safely
     template <typename T>

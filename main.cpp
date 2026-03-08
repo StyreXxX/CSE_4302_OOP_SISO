@@ -1,66 +1,49 @@
+#include <iostream>
 #include "earthquakes_today.h"
+#include "past_earthquakes.h"
+#include "earthquake_prediction.h"
+#include "building_mapping.h"
 
 int main() {
-    EarthquakesToday api;
-    
     while (true) {
-        std::cout << "\n=== EARTHQUAKE TRACKER ===\n";
-        std::cout << "1. View Earthquakes Today\n";
-        std::cout << "2. Exit\n";
-        std::cout << "Select an option: ";
+        std::cout << "\n======================================\n";
+        std::cout << "   GLOBAL EARTHQUAKE MONITORING API   \n";
+        std::cout << "======================================\n";
+        std::cout << "1. Earthquakes Today\n";
+        std::cout << "2. Past Earthquakes\n";
+        std::cout << "3. Earthquake Prediction\n";
+        std::cout << "4. Building Mapping\n";
+        std::cout << "5. Exit System\n";
+        std::cout << "Select a module: ";
 
-        try {
-            int mainChoice = api.getValidInput<int>(1, 2);
-            if (mainChoice == 2) {
-                std::cout << "Stay safe! Exiting...\n";
-                break;
-            }
+        int choice;
+        std::cin >> choice;
 
-            // Show Countries
-            api.displayCountries();
-            std::cout << "Select a country by number: ";
-            // Assuming we have 3 countries loaded in our dummy data for now
-            int countryChoice = api.getValidInput<int>(1, 3); 
-            
-            // Re-fetch the country name based on choice (Hardcoded mapping for the example flow)
-            std::vector<std::string> countries = {"Japan", "Chile", "USA"};
-            std::string selectedCountry = countries[countryChoice - 1];
+        // Basic error handling for the main menu
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
 
-            // Show Earthquakes for that country
-            std::vector<EarthquakeRecord> countryEQs = api.getEarthquakesByCountry(selectedCountry);
-            
-            if (countryEQs.empty()) {
-                std::cout << "No earthquakes recorded for " << selectedCountry << " today.\n";
-                continue;
-            }
-
-            std::cout << "\n--- Earthquakes in " << selectedCountry << " Today ---\n";
-            for (size_t i = 0; i < countryEQs.size(); ++i) {
-                std::cout << i + 1 << ". " << countryEQs[i].place 
-                          << " (Mag: " << countryEQs[i].magnitude << ")\n";
-            }
-
-            std::cout << "Select an earthquake for details: ";
-            int eqChoice = api.getValidInput<int>(1, countryEQs.size());
-            EarthquakeRecord selectedEQ = countryEQs[eqChoice - 1];
-
-            // Show Details
-            api.displayEarthquakeDetails(selectedEQ);
-
-            // Post-Disaster Management Option
-            std::cout << "\n1. View Post-Disaster Management Plan\n";
-            std::cout << "2. Return to Main Menu\n";
-            std::cout << "Select an option: ";
-            
-            int actionChoice = api.getValidInput<int>(1, 2);
-            if (actionChoice == 1) {
-                api.displayDisasterManagement(selectedEQ.keywords);
-            }
-
-        } catch (const InvalidSelectionException& e) {
-            std::cout << "\n[ERROR]: " << e.what() << " Let's try that again.\n";
-        } catch (const std::exception& e) {
-            std::cout << "\n[CRITICAL ERROR]: " << e.what() << "\n";
+        if (choice == 1) {
+            EarthquakesToday todayModule;
+            todayModule.run(); // Hands control over to your code
+        } else if (choice == 2) {
+            PastEarthquakes pastModule;
+            pastModule.run();  // Hands control to teammate 1
+        } else if (choice == 3) {
+            EarthquakePrediction predModule;
+            predModule.run();  // Hands control to teammate 2
+        } else if (choice == 4) {
+            BuildingMapping mapModule;
+            mapModule.run();   // Hands control to teammate 3
+        } else if (choice == 5) {
+            std::cout << "Shutting down system. Stay safe!\n";
+            break;
+        } else {
+            std::cout << "Invalid choice. Please select between 1 and 5.\n";
         }
     }
 

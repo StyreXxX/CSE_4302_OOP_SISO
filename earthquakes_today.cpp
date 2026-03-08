@@ -141,3 +141,57 @@ void EarthquakesToday::displayDisasterManagement(const std::vector<std::string>&
     }
     std::cout << "+++++++++++++++++++++++++++++++++++++++\n";
 }
+
+void EarthquakesToday::run() {
+    while (true) {
+        std::cout << "\n=== EARTHQUAKES TODAY ===\n";
+        std::cout << "1. View Countries\n";
+        std::cout << "2. Return to Main Menu\n";
+        std::cout << "Select an option: ";
+
+        try {
+            int mainChoice = getValidInput<int>(1, 2);
+            if (mainChoice == 2) {
+                break; // Exits your module and goes back to the main system menu
+            }
+
+            displayCountries();
+            std::cout << "Select a country by number: ";
+            int countryChoice = getValidInput<int>(1, availableCountries.size()); 
+            
+            std::string selectedCountry = availableCountries[countryChoice - 1];
+            std::vector<EarthquakeRecord> countryEQs = getEarthquakesByCountry(selectedCountry);
+            
+            if (countryEQs.empty()) {
+                std::cout << "No earthquakes recorded for " << selectedCountry << " today.\n";
+                continue;
+            }
+
+            std::cout << "\n--- Earthquakes in " << selectedCountry << " Today ---\n";
+            for (size_t i = 0; i < countryEQs.size(); ++i) {
+                std::cout << i + 1 << ". " << countryEQs[i].place 
+                          << " (Mag: " << countryEQs[i].magnitude << ")\n";
+            }
+
+            std::cout << "Select an earthquake for details: ";
+            int eqChoice = getValidInput<int>(1, countryEQs.size());
+            EarthquakeRecord selectedEQ = countryEQs[eqChoice - 1];
+
+            displayEarthquakeDetails(selectedEQ);
+
+            std::cout << "\n1. View Post-Disaster Management Plan\n";
+            std::cout << "2. Back\n";
+            std::cout << "Select an option: ";
+            
+            int actionChoice = getValidInput<int>(1, 2);
+            if (actionChoice == 1) {
+                displayDisasterManagement(selectedEQ.keywords);
+            }
+
+        } catch (const InvalidSelectionException& e) {
+            std::cout << "\n[ERROR]: " << e.what() << " Let's try that again.\n";
+        } catch (const std::exception& e) {
+            std::cout << "\n[CRITICAL ERROR]: " << e.what() << "\n";
+        }
+    }
+}
