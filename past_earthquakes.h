@@ -1,16 +1,15 @@
 #ifndef PAST_EARTHQUAKES_H
 #define PAST_EARTHQUAKES_H
 
-#include <iostream>
-#include <vector>
-#include <string>
+#include <bits/stdc++.h>
 #include "past_earthquake_record.h"
 #include "past_earthquake_exceptions.h"
+using namespace std;
 
 class PastEarthquakes {
 private:
-    std::vector<PastEarthquakeRecord> records;
-    std::string filename;
+    vector<PastEarthquakeRecord> records;
+    string filename;
 
     void loadFromFile();
     void displayAllRecords() const;
@@ -21,17 +20,15 @@ private:
     template <typename T>
     T getValidatedInput(T min, T max) const {
         T value;
-        std::cin >> value;
+        cin >> value;
 
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            // ================= EXCEPTION =================
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(10000, '\n');
             throw InvalidInputException("Invalid input type. Please enter a valid number.");
         }
 
         if (value < min || value > max) {
-            // ================= EXCEPTION =================
             throw InvalidInputException("Input out of allowed range.");
         }
 

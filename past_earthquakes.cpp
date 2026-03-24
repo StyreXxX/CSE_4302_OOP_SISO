@@ -1,21 +1,17 @@
 #include "past_earthquakes.h"
 #include "past_earthquake_exceptions.h"
-#include <fstream>
-#include <algorithm>
-#include <limits>
+using namespace std;
 
 PastEarthquakes::PastEarthquakes() : filename("past_earthquakes.txt") {}
 
 void PastEarthquakes::saveSampleDataIfFileMissing() {
-    std::ifstream fin(filename.c_str());
+    ifstream fin(filename.c_str());
     if (fin.is_open()) {
         fin.close();
         return;
     }
 
-    std::ofstream fout(filename.c_str());
-
-    // ================= EXCEPTION =================
+    ofstream fout(filename.c_str());
     if (!fout.is_open()) {
         throw FileOpenException(filename);
     }
@@ -35,17 +31,14 @@ void PastEarthquakes::saveSampleDataIfFileMissing() {
 void PastEarthquakes::loadFromFile() {
     records.clear();
 
-    std::ifstream fin(filename.c_str());
-
-    // ================= EXCEPTION =================
+    ifstream fin(filename.c_str());
     if (!fin.is_open()) {
         throw FileOpenException(filename);
     }
 
-    std::string line;
-    while (std::getline(fin, line)) {
+    string line;
+    while (getline(fin, line)) {
         if (line.empty()) continue;
-
         PastEarthquakeRecord record = PastEarthquakeRecord::fromString(line);
         records.push_back(record);
     }
@@ -53,76 +46,72 @@ void PastEarthquakes::loadFromFile() {
     fin.close();
 
     if (records.empty()) {
-        // ================= EXCEPTION =================
         throw RecordNotFoundException("No past earthquake records found in file.");
     }
 }
 
 void PastEarthquakes::displayAllRecords() const {
-    std::cout << "\n========== PAST EARTHQUAKE RECORDS ==========\n";
+    cout << "\n========== PAST EARTHQUAKE RECORDS ==========\n";
     for (size_t i = 0; i < records.size(); ++i) {
-        std::cout << "\nRecord #" << i + 1 << "\n";
-        std::cout << records[i];
-        std::cout << "--------------------------------------------\n";
+        cout << "\nRecord #" << i + 1 << "\n";
+        cout << records[i];
+        cout << "--------------------------------------------\n";
     }
 }
 
 void PastEarthquakes::searchByLocation() const {
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    std::string keyword;
-    std::cout << "Enter location keyword: ";
-    std::getline(std::cin, keyword);
+    string keyword;
+    cout << "Enter location keyword: ";
+    getline(cin, keyword);
 
     bool found = false;
-    std::cout << "\n========= SEARCH RESULT =========\n";
+    cout << "\n========= SEARCH RESULT =========\n";
 
     for (size_t i = 0; i < records.size(); ++i) {
-        if (records[i].getLocation().find(keyword) != std::string::npos) {
-            std::cout << "\nRecord #" << i + 1 << "\n";
-            std::cout << records[i];
-            std::cout << "---------------------------------\n";
+        if (records[i].getLocation().find(keyword) != string::npos) {
+            cout << "\nRecord #" << i + 1 << "\n";
+            cout << records[i];
+            cout << "---------------------------------\n";
             found = true;
         }
     }
 
     if (!found) {
-        // ================= EXCEPTION =================
         throw RecordNotFoundException("No earthquake found for location keyword: " + keyword);
     }
 }
 
 void PastEarthquakes::showStrongestEarthquake() const {
     if (records.empty()) {
-        // ================= EXCEPTION =================
         throw RecordNotFoundException("No records available to compare.");
     }
 
     PastEarthquakeRecord strongest = records[0];
 
     for (size_t i = 1; i < records.size(); ++i) {
-        // operator overloading used here: >
         if (records[i] > strongest) {
             strongest = records[i];
         }
     }
 
-    std::cout << "\n====== STRONGEST PAST EARTHQUAKE ======\n";
-    std::cout << strongest;
-    std::cout << "=======================================\n";
+    cout << "\n====== STRONGEST PAST EARTHQUAKE ======\n";
+    cout << strongest;
+    cout << "=======================================\n";
 }
 
 void PastEarthquakes::run() {
     while (true) {
-        std::cout << "\n=====================================\n";
-        std::cout << "       PAST EARTHQUAKES MODULE       \n";
-        std::cout << "=====================================\n";
-        std::cout << "1. Load Past Earthquake Records\n";
-        std::cout << "2. Show All Past Earthquakes\n";
-        std::cout << "3. Search Past Earthquake by Location\n";
-        std::cout << "4. Show Strongest Earthquake\n";
-        std::cout << "5. Return to Main Menu\n";
-        std::cout << "Enter choice: ";
+        cout << "\n=====================================\n";
+        cout << "       PAST EARTHQUAKES MODULE       \n";
+        cout << "=====================================\n";
+        cout << "1. Load Past Earthquake Records\n";
+        cout << "2. Show All Past Earthquakes\n";
+        cout << "3. Search Past Earthquake by Location\n";
+        cout << "4. Show Strongest Earthquake\n";
+        cout << "5. Return to Main Menu\n";
+        cout << "Enter choice: ";
 
         try {
             int choice = getValidatedInput<int>(1, 5);
@@ -130,7 +119,7 @@ void PastEarthquakes::run() {
             if (choice == 1) {
                 saveSampleDataIfFileMissing();
                 loadFromFile();
-                std::cout << "\nPast earthquake records loaded successfully from file.\n";
+                cout << "\nPast earthquake records loaded successfully from file.\n";
             }
             else if (choice == 2) {
                 if (records.empty()) {
@@ -151,24 +140,24 @@ void PastEarthquakes::run() {
                 showStrongestEarthquake();
             }
             else if (choice == 5) {
-                std::cout << "Returning to main menu...\n";
+                cout << "Returning to main menu...\n";
                 break;
             }
         }
-        catch (const FileOpenException& e) { // ================= EXCEPTION HANDLER =================
-            std::cout << "\n[FILE ERROR] " << e.what() << "\n";
+        catch (const FileOpenException& e) {
+            cout << "\n[FILE ERROR] " << e.what() << "\n";
         }
-        catch (const InvalidRecordFormatException& e) { // ================= EXCEPTION HANDLER =================
-            std::cout << "\n[FORMAT ERROR] " << e.what() << "\n";
+        catch (const InvalidRecordFormatException& e) {
+            cout << "\n[FORMAT ERROR] " << e.what() << "\n";
         }
-        catch (const InvalidInputException& e) { // ================= EXCEPTION HANDLER =================
-            std::cout << "\n[INPUT ERROR] " << e.what() << "\n";
+        catch (const InvalidInputException& e) {
+            cout << "\n[INPUT ERROR] " << e.what() << "\n";
         }
-        catch (const RecordNotFoundException& e) { // ================= EXCEPTION HANDLER =================
-            std::cout << "\n[NOT FOUND] " << e.what() << "\n";
+        catch (const RecordNotFoundException& e) {
+            cout << "\n[NOT FOUND] " << e.what() << "\n";
         }
-        catch (const std::exception& e) { // ================= EXCEPTION HANDLER =================
-            std::cout << "\n[GENERAL ERROR] " << e.what() << "\n";
+        catch (const exception& e) {
+            cout << "\n[GENERAL ERROR] " << e.what() << "\n";
         }
     }
 }
