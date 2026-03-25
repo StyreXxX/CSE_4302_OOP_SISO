@@ -13,7 +13,9 @@ private:
 
     void loadFromFile();
     void displayAllRecords() const;
-    void searchByLocation() const;
+    void displayCountries() const;
+    void searchByCountry() const;
+    vector<string> getUniqueCountries() const;
     void showStrongestEarthquake() const;
     void saveSampleDataIfFileMissing();
 
