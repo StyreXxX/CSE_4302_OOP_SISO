@@ -14,7 +14,7 @@ public:
     void showMain() {
         Color::clear();
         std::cout << "========================================\n";
-        std::cout << "     BANGLADESH EARTHQUAKE EARLY WARNING SYSTEM\n";
+        std::cout << "    BANGLADESH EARTHQUAKE EARLY WARNING SYSTEM\n";
         std::cout << "========================================\n";
         
         Color::printSuccess("System: ONLINE");
@@ -52,7 +52,7 @@ public:
         std::vector<std::string> systems = {"DPDC Power Grid", "DESCO Network", "Titas Gas", "MRT Lines", "Metro Rail"};
         for(auto& s : systems) { 
             Color::printWarning("SHUTTING: " + s); 
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            Sleep(200); // REPLACED STD::THREAD
         }
     }
     

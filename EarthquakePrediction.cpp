@@ -1,8 +1,7 @@
 #include "EarthquakePrediction.h"
 #include <iostream>
-#include <thread>
-#include <chrono>
 #include <cctype>
+#include <windows.h> // Replaces thread and chrono for Sleep()
 
 EarthquakePrediction::EarthquakePrediction() : simulator(&dashboard) {
     initializeSystem();
@@ -19,7 +18,7 @@ void EarthquakePrediction::initializeSystem() {
     for (int p = 25; p <= 100; p += 25) {
         Color::printProgress(p);
         std::cout << "\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        Sleep(500); // 500 milliseconds pause
     }
 
     loadCities();
@@ -27,7 +26,7 @@ void EarthquakePrediction::initializeSystem() {
 
     Color::printSuccess("20 Cities Loaded");
     Color::printSuccess("20 Earthquakes Ready");
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    Sleep(2000); // 2 seconds pause
 }
 
 void EarthquakePrediction::loadCities() {
@@ -122,7 +121,7 @@ void EarthquakePrediction::run() {
                         std::cin.clear();
                         std::cin.ignore(10000, '\n');
                         Color::printError("Invalid input");
-                        std::this_thread::sleep_for(std::chrono::seconds(1));
+                        Sleep(1000); // 1 second pause
                         break;
                     }
 
@@ -130,7 +129,7 @@ void EarthquakePrediction::run() {
                         simulator.simulate(sel - 1);
                     } else {
                         Color::printError("Invalid selection");
-                        std::this_thread::sleep_for(std::chrono::seconds(1));
+                        Sleep(1000); // 1 second pause
                     }
                 }
                 break;
@@ -153,7 +152,7 @@ void EarthquakePrediction::run() {
 
             default:
                 Color::printWarning("Use S, D, I, or Q");
-                std::this_thread::sleep_for(std::chrono::seconds(1));
+                Sleep(1000); // 1 second pause
         }
     }
 }

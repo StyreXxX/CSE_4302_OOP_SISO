@@ -3,12 +3,8 @@ CXXFLAGS = -Wall -g -std=c++17
 
 TARGET = earthquake_system.exe
 
-SRCS = main.cpp \
-       earthquakes_today.cpp \
-       past_earthquakes.cpp \
-       past_earthquake_record.cpp \
-       earthquake_prediction.cpp \
-       building_mapping.cpp
+# This automatically grabs EVERY .cpp file in your current folder
+SRCS = $(wildcard *.cpp)
 
 OBJS = $(SRCS:.cpp=.o)
 

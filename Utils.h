@@ -4,13 +4,20 @@
 #include <iostream>
 #include <cmath>
 #include <string>
-#include <thread>
-#include <chrono>
 #include <iomanip>
 #include <vector>
 #include <functional>
 #include <algorithm>
 #include <sstream>
+
+// Add these two lines to replace thread/chrono safely!
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846

@@ -81,7 +81,7 @@ public:
             Color::printAlert("COUNTDOWN FOR " + imp.name);
             for(int t = (int)imp.sTime; t >= 0; t--) {
                 dashboard->showCountdown(t, imp.name);
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                Sleep(1000); // REPLACED STD::THREAD
             }
         }
         
@@ -93,7 +93,7 @@ public:
         dashboard->showInfrastructureShutdown();
         
         Color::printSuccess("SIMULATION COMPLETE");
-        std::this_thread::sleep_for(std::chrono::seconds(3));
+        Sleep(3000); // REPLACED STD::THREAD
         simulating = false;
     }
     

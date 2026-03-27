@@ -1,8 +1,8 @@
 #include <iostream>
 #include "earthquakes_today.h"
 #include "past_earthquakes.h"
-#include "earthquake_prediction.h"
-#include "building_mapping.h"
+#include "EarthquakePrediction.h"
+#include "BuildingMapping.h"
 
 int main() {
     while (true) {
@@ -34,7 +34,7 @@ int main() {
             pastModule.run();  
         } else if (choice == 3) { //Niloy
             EarthquakePrediction predModule;
-            predModule.run();  
+            predModule.run(); 
         } else if (choice == 4) { //Rayed
             BuildingMapping mapModule;
             mapModule.run();  
