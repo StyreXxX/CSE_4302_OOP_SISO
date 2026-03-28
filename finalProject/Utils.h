@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <sstream>
 
-// Add these two lines to replace thread/chrono safely!
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif

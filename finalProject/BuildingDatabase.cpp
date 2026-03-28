@@ -17,11 +17,9 @@ void BuildingDatabase::loadData(const string& filename) {
     string line;
 
     while (getline(file, line)) {
-        // --- THE FIX: Skip empty lines or lines with just spaces/returns ---
         if (line.empty() || line.find_first_not_of(" \t\r\n") == string::npos) {
             continue; 
         }
-        // -------------------------------------------------------------------
 
         stringstream ss(line);
         string token;

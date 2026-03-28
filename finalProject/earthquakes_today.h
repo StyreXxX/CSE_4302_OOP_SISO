@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <map>
 
-// Custom Exception for invalid user inputs
+//Exception for invalid user inputs
 class InvalidSelectionException : public std::exception {
 private:
     std::string message;
@@ -25,9 +25,9 @@ struct EarthquakeRecord {
     double magnitude;
     double depth;
     std::string place;
-    int damages;          // Simulated API data
-    int missingPersons;   // Simulated API data
-    std::vector<std::string> keywords; // e.g., "tsunami_risk", "buildings_damaged"
+    int damages;         
+    int missingPersons;   
+    std::vector<std::string> keywords; //for post management
 };
 
 class EarthquakesToday {
@@ -35,7 +35,7 @@ private:
     std::vector<EarthquakeRecord> dataset;
     std::vector<std::string> availableCountries;
 
-    void loadDummyData(); // Simulates fetching the API
+    void loadDummyData(); 
 
 public:
     EarthquakesToday();
@@ -44,7 +44,6 @@ public:
     std::vector<EarthquakeRecord> getEarthquakesByCountry(const std::string& country) const;
     void displayEarthquakeDetails(const EarthquakeRecord& eq) const;
     void displayDisasterManagement(const std::vector<std::string>& keywords) const;
-    // Add this inside the public section of class EarthquakesToday:
     void run();
 
     // Template function to handle user input safely

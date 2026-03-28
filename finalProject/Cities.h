@@ -3,6 +3,9 @@
 
 #include "Utils.h"
 #include <vector>
+#include <string>
+#include <iostream> 
+#include <iomanip>  
 
 class Infrastructure {
 protected:
@@ -51,7 +54,7 @@ private:
     
 public:
     City(std::string n, double lt, double ln, int pop, std::string dist)
-        : name(n), lat(lt), lon(ln), population(pop), district(dist) {}
+        : name(n), district(dist), lat(lt), lon(ln), population(pop) {}
     
     ~City() { for(auto i : infra) delete i; }
     

@@ -6,7 +6,6 @@
 
 using namespace std;
 
-// Constructor loads the database when the class is created
 BuildingMapping::BuildingMapping() {
     db.loadData("buildings_dataset.txt");
 }

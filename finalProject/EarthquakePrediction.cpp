@@ -1,7 +1,7 @@
 #include "EarthquakePrediction.h"
 #include <iostream>
 #include <cctype>
-#include <windows.h> // Replaces thread and chrono for Sleep()
+#include <windows.h> 
 
 EarthquakePrediction::EarthquakePrediction() : simulator(&dashboard) {
     initializeSystem();
@@ -18,7 +18,7 @@ void EarthquakePrediction::initializeSystem() {
     for (int p = 25; p <= 100; p += 25) {
         Color::printProgress(p);
         std::cout << "\n";
-        Sleep(500); // 500 milliseconds pause
+        Sleep(500); 
     }
 
     loadCities();
@@ -26,7 +26,7 @@ void EarthquakePrediction::initializeSystem() {
 
     Color::printSuccess("20 Cities Loaded");
     Color::printSuccess("20 Earthquakes Ready");
-    Sleep(2000); // 2 seconds pause
+    Sleep(2000); 
 }
 
 void EarthquakePrediction::loadCities() {

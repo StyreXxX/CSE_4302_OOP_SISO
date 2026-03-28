@@ -9,7 +9,6 @@ class BuildingMapping {
 private:
     BuildingDatabase db;
 
-    // Helper functions
     void clearScreen();
     void pauseScreen();
     void printLine(int n = 55);
@@ -20,8 +19,8 @@ private:
     void showRiskReport(Building* b, RiskModel* model, double score);
 
 public:
-    BuildingMapping(); // Constructor
-    void run();        // Main entry point for this module
+    BuildingMapping(); 
+    void run();       
 };
 
 #endif
